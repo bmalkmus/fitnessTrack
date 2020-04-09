@@ -1,11 +1,10 @@
 const router = require("express").Router();
 // const db = require("../models")
-Workout = require("../models/workout.js")
+const Workout = require("../models/workout.js")
 
 router.get("/api/workouts", (req, res) => {
     Workout.find({})
       .then(function(dbWork){
-          console.log(dbWork);
           res.json(dbWork)
       })
       .catch(function (err){
@@ -14,15 +13,24 @@ router.get("/api/workouts", (req, res) => {
   });
 
 router.post("/api/workouts", function ({body}, res){
-    console.log(":-D");
-    console.log(body);
     Workout.create(body)
     .then(function (dbWorkout){
-        console.log(":-DD");
         res.json(dbWorkout);
     })
     .catch(function (err){
         res.status(400).json(err);
+    })
+});
+
+router.put("/api/workouts/:id", function(req, res){
+    const exercise = {exercises: [req.body]};
+    console.log(req.params.id)
+    Workout.update({_id: req.params.id}, exercise)
+    .then(function(dbExercise){
+        res.json(dbExercise);
+    })
+    .catch(function(err){
+        res.status(400).json(err)
     })
 });
 
