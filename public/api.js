@@ -11,7 +11,6 @@ const API = {
     return json[json.length - 1];
   },
   async addExercise(data) {
-    console.log(location.search);
     const id = location.search.split("=")[1];
 
     const res = await fetch("/api/workouts/" + id, {
@@ -24,7 +23,7 @@ const API = {
 
     return json;
   },
-  async createWorkout(data = {}) {
+  async createWorkout(data = {day : Date.now()}) {
     const res = await fetch("/api/workouts", {
       method: "POST",
       body: JSON.stringify(data),

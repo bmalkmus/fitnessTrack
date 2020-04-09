@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const db = require("../models")
+// const db = require("../models")
+Workout = require("../models/workout.js")
 
 router.get("/api/workouts", (req, res) => {
-    db.Workout.find({})
+    Workout.find({})
       .then(function(dbWork){
           console.log(dbWork);
           res.json(dbWork)
@@ -15,7 +16,7 @@ router.get("/api/workouts", (req, res) => {
 router.post("/api/workouts", function ({body}, res){
     console.log(":-D");
     console.log(body);
-    db.Workout.create(body)
+    Workout.create(body)
     .then(function (dbWorkout){
         console.log(":-DD");
         res.json(dbWorkout);
