@@ -33,8 +33,9 @@ router.post("/api/workouts", function ({body}, res){
 });
 
 router.put("/api/workouts/:id", function(req, res){
-    console.log(req.params.id)
-    Workout.update({_id: req.params.id}, { $push: { exercises: req.body } })
+    console.log(req.body.duration)
+    let obj = {totalDuration : req.body.duration}
+    Workout.update({_id: req.params.id}, { $push: { exercises: req.body }, $inc: obj})
     .then(function(dbExercise){
         res.json(dbExercise);
     })
